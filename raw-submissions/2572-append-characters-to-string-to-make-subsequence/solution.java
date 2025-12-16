@@ -1,0 +1,23 @@
+class Solution {
+    public int appendCharacters(String s, String t) {
+        int len1 = t.length();
+        int len2 = s.length();
+        int count=0;
+        int count2=0;
+        int i=0;
+        int j=0;
+        while(i < s.length() && j < t.length()){
+            if(s.charAt(i)==t.charAt(j)){
+                i++;
+                j++;
+                count++;
+            }
+            else{
+                i++;
+                
+            }
+            count2=len1-count;
+        }
+        return count2;
+    }
+}

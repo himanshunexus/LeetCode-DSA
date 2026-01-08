@@ -9,6 +9,19 @@ class Solution {
             maxSum=Math.max(currSum,maxSum);
             
         }
+
+        // int sum=Integer.MIN_VALUE;
+        // int maxSum=Integer.MIN_VALUE;
+        // int n = nums.length;
+        // for(int i=0;i<n;i++){
+        //     sum=0;
+        //     for(int j=i;j<n;j++){
+        //         sum+=nums[j];
+
+        //         maxSum = Math.max(sum,maxSum);
+        //     }
+            
+        // }
         return maxSum;
     }
 }

@@ -1,6 +1,16 @@
 class Solution {
     public char findTheDifference(String s, String t) {
-        
-        return (char)(s + t).chars().reduce(0, (a,b) -> a ^ b);
+        int xor = 0;
+
+        for (char c : s.toCharArray()) {
+            xor ^= c;
+        }
+
+        for (char c : t.toCharArray()) {
+            xor ^= c;
+        }
+
+        return (char) xor;
     }
 }
+

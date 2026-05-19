@@ -1,19 +1,24 @@
 class Solution {
+    public boolean isVol(char k){
+        if(k == 'a' || k == 'A' || k == 'e'|| k == 'E' || k == 'i' || k == 'I' || k == 'o' || k == 'O' || k == 'u' || k == 'U') return true;
+        return false;
+    }
     public String reverseVowels(String s) {
-        String vowel = "aeiouAEIOU";
         char[] arr = s.toCharArray();
-        int left = 0, right = arr.length - 1;
-
-        while (left < right) {
-            if (vowel.indexOf(arr[left]) < 0) left++;
-            else if (vowel.indexOf(arr[right]) < 0) right--;
-            else {
+        int left = 0 , right = arr.length - 1;
+        while(left < right){
+            if(isVol(arr[left]) && isVol(arr[right])){
                 char temp = arr[left];
-                arr[left++] = arr[right];
-                arr[right--] = temp;
+                arr[left] = arr[right];
+                arr[right] = temp;
+            left++;
+            right--;
+            }else if (!isVol(arr[left])) {
+                left++;
+            } else {
+                right--;
             }
         }
         return new String(arr);
     }
 }
-

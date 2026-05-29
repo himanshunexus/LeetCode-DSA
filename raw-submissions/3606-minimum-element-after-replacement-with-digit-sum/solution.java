@@ -1,7 +1,6 @@
 class Solution {
     public int minElement(int[] nums) {
         int sum;
-        // Arrays.sort(nums);
         for(int i = 0; i < nums.length; i++){
             sum = 0;
             int digit = nums[i];

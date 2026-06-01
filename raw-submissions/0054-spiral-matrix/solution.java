@@ -1,35 +1,30 @@
 class Solution {
     public List<Integer> spiralOrder(int[][] matrix) {
-        if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
-            return new ArrayList<>();
-        }
+        int R = matrix.length, C = matrix[0].length;
         List<Integer> res = new ArrayList<>();
-        int sRow = 0, sCol = 0;
-        int eRow = matrix.length - 1, eCol = matrix[0].length - 1;
+        boolean[][] vis = new boolean[R][C];
 
-        while (sRow <= eRow && sCol <= eCol) {
-            for (int j = sCol; j <= eCol; j++) {
-                res.add(matrix[sRow][j]);
+        int[] dr = {0,  1,  0, -1};
+        int[] dc = {1,  0, -1,  0};
+
+        int r = 0, c = 0, dir = 0;  
+
+        for (int i = 0; i < R * C; i++) {
+            res.add(matrix[r][c]);
+            vis[r][c] = true;
+
+            int nr = r + dr[dir];
+            int nc = c + dc[dir];
+
+            if (nr < 0 || nr >= R || nc < 0 || nc >= C || vis[nr][nc]) {
+                dir = (dir + 1) % 4;   
+                nr = r + dr[dir];
+                nc = c + dc[dir];
             }
-            sRow++;
-            for (int i = sRow; i <= eRow; i++) {
-                res.add(matrix[i][eCol]);
-            }
-            eCol--;
-            if (sRow <= eRow) {
-                for (int j = eCol; j >= sCol; j--) {
-                    res.add(matrix[eRow][j]);
-                }
-                eRow--;
-            }
-            if (sCol <= eCol) {
-                for (int i = eRow; i >= sRow; i--) {
-                    res.add(matrix[i][sCol]);
-                }
-                sCol++;
-            }
+
+            r = nr;
+            c = nc;
         }
         return res;
     }
 }
-

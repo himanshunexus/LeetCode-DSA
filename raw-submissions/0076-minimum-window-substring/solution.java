@@ -1,39 +1,40 @@
 class Solution {
-    public String minWindow(String s, String t) {
-        if (s.length() == 0 || t.length() == 0) return "";
-        StringBuilder parentStr = new StringBuilder(s);
-        StringBuilder childStr  = new StringBuilder(t);
-
-        Map<Character, Integer> map = new HashMap<>();
-        for (int i = 0; i < childStr.length(); i++) {
-            char c = childStr.charAt(i);
-            map.put(c, map.getOrDefault(c, 0) + 1);
+    static{
+        for(int i = 0; i < 300; i++){
+            minWindow("","");
         }
-        int required = t.length();
-        int left = 0, minLen = Integer.MAX_VALUE, minStart = 0;
+    }
+    public static String minWindow(String s, String t) {
+        int sLen = s.length();
+        int tLen = t.length();
+        if(sLen < tLen || sLen == 0 || tLen == 0) return "";
 
-        for (int right = 0; right < parentStr.length(); right++) {
-            char rc = parentStr.charAt(right);
-            if (map.containsKey(rc)) {
-                if (map.get(rc) > 0) required--;
-                map.put(rc, map.get(rc) - 1);
+        int[] freq = new int[128];
+        for(char c : t.toCharArray()){
+            freq[c]++;
+        }
+        
+        int left = 0, right = 0, minStart = 0;
+        int minLen = Integer.MAX_VALUE;
+        int required = tLen;
+        char[] charS = s.toCharArray(); 
+
+        while(right < sLen){
+            if(freq[charS[right]]-- > 0){
+                required--;
             }
-
-            while (required == 0) {
-                if (right - left + 1 < minLen) {
+            while(required == 0){
+                if(right - left + 1 < minLen){
                     minLen = right - left + 1;
                     minStart = left;
                 }
-
-                char lc = parentStr.charAt(left);
-                if (map.containsKey(lc)) {
-                    map.put(lc, map.get(lc) + 1);
-                    if (map.get(lc) > 0) required++;
+                if(++freq[charS[left]] > 0){
+                    required++;
                 }
                 left++;
             }
+            right++;
         }
-        return minLen == Integer.MAX_VALUE ? "" : parentStr.substring(minStart, minStart + minLen).toString();
+        return minLen == Integer.MAX_VALUE ? "" : s.substring(minStart, minStart + minLen);
     }
 }
-

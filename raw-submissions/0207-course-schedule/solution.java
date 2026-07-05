@@ -1,32 +1,45 @@
 class Solution {
-    public boolean canFinish(int numCourses, int[][] prerequisites) {
-        List<List<Integer>> adj = new ArrayList<>();
-        for (int i = 0; i < numCourses; i++) adj.add(new ArrayList<>());
-        for (int[] edge : prerequisites) {
-            adj.get(edge[1]).add(edge[0]);
+    static ArrayList<Integer>[] graph;
+    static boolean[] vis;
+    static Stack<Integer> st;
+    static void dfs(int node){
+        vis[node] = true;
+        for(int nei : graph[node]){
+            if(!vis[nei])
+                dfs(nei);
         }
-        int[] visit = new int[numCourses];
+        st.push(node);
+    }
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        graph = new ArrayList[numCourses];
+        vis = new boolean[numCourses];
+        st = new Stack<>();
+
         for (int i = 0; i < numCourses; i++) {
-            if (visit[i] == 0) {
-                if (hasCycle(i, adj, visit)) {
-                    return false; 
-                }
+            graph[i] = new ArrayList<>();
+        }
+
+        for (int[] pre : prerequisites) {
+            graph[pre[1]].add(pre[0]);
+        }
+
+        for (int i = 0; i < numCourses; i++) {
+            if (!vis[i]) {
+                dfs(i);
+            }
+        }
+
+        int[] position = new int[numCourses];
+        int pos = 0;
+        while (!st.isEmpty()) {
+            position[st.pop()] = pos++;
+        }
+
+        for (int[] pre : prerequisites) {
+            if (position[pre[1]] >= position[pre[0]]) {
+                return false;
             }
         }
         return true;
-    }
-    private boolean hasCycle(int node, List<List<Integer>> adj, int[] visit) {
-        if (visit[node] == 1) return true; 
-        if (visit[node] == 2) return false;
-
-        visit[node] = 1; 
-        
-        for (int neighbor : adj.get(node)) {
-            if (hasCycle(neighbor, adj, visit)) {
-                return true;
-            }
-        }
-        visit[node] = 2;
-        return false;
     }
 }

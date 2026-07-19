@@ -1,10 +1,13 @@
 class Solution {
-      public int fib(int n) {
-        double sqrt5 = Math.sqrt(5);
-        double phi = (1 + sqrt5) / 2;
-        double psi = (1 - sqrt5) / 2;
-        double fib = (Math.pow(phi, n) - Math.pow(psi, n)) / sqrt5;
-        return (int)Math.round(fib);
+    public int fib(int n) {
+        if (n == 0 || n == 1) return n;
+        int c = 0;
+        int a = 0 , b = 1;
+        for(int i = 1; i < n; i++){
+            c = a + b;
+            a = b;
+            b = c;
+        }
+        return c;
     }
-    
 }

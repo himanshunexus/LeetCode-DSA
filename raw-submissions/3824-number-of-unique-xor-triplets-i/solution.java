@@ -6,7 +6,7 @@ class Solution {
         }
         int ans = 1;
         while(ans <= n){
-            ans *= 2;
+            ans = ans << 1;
         }
         return ans;
     }

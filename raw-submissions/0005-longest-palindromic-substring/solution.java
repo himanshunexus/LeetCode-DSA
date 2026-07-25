@@ -1,20 +1,27 @@
 class Solution {
-    public String longestPalindrome(String s) {
-    int[] res = {0, 0};
-    for (int i = 0; i < s.length(); i++) {
-        expand(s, i, i, res);     // Odd
-        expand(s, i, i + 1, res); // Even
+    static Boolean dp[][];
+    public static boolean solve(String s , int i , int j){
+        if(i >= j) return true;
+        if(dp[i][j] != null) return dp[i][j];
+        if(s.charAt(i) == s.charAt(j))  return dp[i][j] = solve(s ,  i + 1, j - 1);
+        return dp[i][j] = false;
     }
-    return s.substring(res[0], res[1]);
-}
+    public static String longestPalindrome(String s) {
+        int n = s.length();
+        dp = new Boolean[n][n];
+        int max = Integer.MIN_VALUE;
+        int count = 0;
 
-private void expand(String s, int L, int R, int[] res) {
-    while (L >= 0 && R < s.length() && s.charAt(L) == s.charAt(R)) {
-        if (R - L + 1 > res[1] - res[0]) {
-            res[0] = L;
-            res[1] = R + 1;
+        for(int i = 0; i < n; i++){
+            for(int j = i; j < n; j++){
+                if(solve(s , i , j) == true){
+                    if(j - i + 1 > max){
+                        max = j - i + 1;
+                        count = i;
+                    }
+                }
+            }
         }
-        L--; R++;
+        return s.substring(count , count + max);
     }
-}
 }

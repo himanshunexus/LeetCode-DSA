@@ -5,22 +5,26 @@ on:
   schedule:
     - cron: '0 0 * * *' # Automatically runs daily at midnight UTC
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Sync LeetCode Solutions
         uses: joshcai/leetcode-sync@6749b872e89b3c10d213a6e599a7424584c1fa10
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          leetcode-csrf-token: ${{ secrets.LEETCODE_CSRF_TOKEN }}
           leetcode-session: ${{ secrets.LEETCODE_SESSION }}
           destination-folder: 'raw-submissions'
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.x'
 

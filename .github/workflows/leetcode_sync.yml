@@ -19,6 +19,7 @@ jobs:
         uses: joshcai/leetcode-sync@6749b872e89b3c10d213a6e599a7424584c1fa10
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          leetcode-csrf-token: ${{ secrets.LEETCODE_CSRF_TOKEN }}
           leetcode-session: ${{ secrets.LEETCODE_SESSION }}
           destination-folder: 'raw-submissions'
 

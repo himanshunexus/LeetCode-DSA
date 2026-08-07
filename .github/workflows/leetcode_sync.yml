@@ -21,7 +21,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           leetcode-csrf-token: ${{ secrets.LEETCODE_CSRF_TOKEN }}
           leetcode-session: ${{ secrets.LEETCODE_SESSION }}
-          destination-folder: 'raw-submissions'
+          destination-folder: 'topics/raw-submissions'
 
       - name: Set up Python
         uses: actions/setup-python@v5

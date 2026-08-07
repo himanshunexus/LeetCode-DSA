@@ -13,7 +13,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Sync LeetCode Solutions
-        uses: joshcai/leetcode-sync@v1.7
+        uses: joshcai/leetcode-sync@6749b872e89b3c10d213a6e599a7424584c1fa10
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           leetcode-session: ${{ secrets.LEETCODE_SESSION }}
